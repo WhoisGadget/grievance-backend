@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+.vercel
+*.db
+data.db
+firebase-service-account.json
+README.md
+*.test.js
+test-*.js
