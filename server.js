@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 
 // Validate API keys on startup
 function validateApiKeys() {
@@ -179,6 +180,14 @@ if (serviceAccount) {
 const port = process.env.PORT || 3000;
 const jwtSecret = process.env.JWT_SECRET || 'secret';
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
+
+// CORS middleware - allow frontend to call backend
+app.use(cors({
+  origin: true, // Allow all origins in development, or specify your frontend URL
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Middleware for logging requests
 app.use((req, res, next) => {
