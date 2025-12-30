@@ -34,4 +34,4 @@ For protected routes, use Firebase Authentication:
 - Use the custom token with Firebase SDK (client-side) to sign in and obtain an ID token.
 - Include `Authorization: Bearer <id_token>` in headers for API requests.
 
-Note: Set up Firebase project and place the service account JSON at `./firebase-service-account.json`.
+Note: Set up Firebase project and place the service account JSON at `./firebase-service-account.json`.# Trigger redeploy Tue Dec 30 04:19:38 AM UTC 2025
