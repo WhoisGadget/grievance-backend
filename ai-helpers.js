@@ -75,7 +75,7 @@ async function getEmbedding(text) {
 async function getGeneration(prompt) {
   const providers = [
     { name: 'Gemini', client: genAI, func: async () => {
-      const chatModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const chatModel = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const result = await chatModel.generateContent(prompt);
       return { text: result.response.text(), provider: 'gemini' };
     }},
@@ -126,7 +126,7 @@ async function getGenerationWithSystem(systemPrompt, userPrompt) {
   const providers = [
     { name: 'Gemini', client: genAI, func: async () => {
       const chatModel = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.0-flash",
         systemInstruction: systemPrompt
       });
       const result = await chatModel.generateContent(userPrompt);
