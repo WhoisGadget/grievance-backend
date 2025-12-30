@@ -42,6 +42,93 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+// Auto-initialize database tables on startup
+async function initializeDatabase() {
+  console.log('🔧 Initializing database tables...');
+  try {
+    // Enable pgvector extension (for embeddings)
+    try {
+      await pool.query('CREATE EXTENSION IF NOT EXISTS vector');
+      console.log('   ✅ pgvector extension enabled');
+    } catch (err) {
+      console.log('   ⚠️  pgvector not available (embeddings will be stored as JSON)');
+    }
+
+    // Create leak_data table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS leak_data (
+        id SERIAL PRIMARY KEY,
+        value FLOAT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('   ✅ leak_data table ready');
+
+    // Create cases table (for RAG - similar cases lookup)
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS cases (
+        id SERIAL PRIMARY KEY,
+        case_id VARCHAR(255),
+        title TEXT,
+        decision TEXT,
+        date VARCHAR(50),
+        text_content TEXT,
+        embedding TEXT,
+        keywords TEXT,
+        provider VARCHAR(50) DEFAULT 'gemini',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('   ✅ cases table ready');
+
+    // Create pdfs table (for uploaded documents)
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS pdfs (
+        id SERIAL PRIMARY KEY,
+        filename VARCHAR(255),
+        text_content TEXT,
+        embedding TEXT,
+        provider VARCHAR(50) DEFAULT 'gemini',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('   ✅ pdfs table ready');
+
+    // Create feedback table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS feedback (
+        id SERIAL PRIMARY KEY,
+        grievance_text TEXT,
+        generated_report TEXT,
+        rating INTEGER,
+        comments TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('   ✅ feedback table ready');
+
+    // Create users table (for user tracking)
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        firebase_uid VARCHAR(255) UNIQUE,
+        email VARCHAR(255),
+        name VARCHAR(255),
+        role VARCHAR(50) DEFAULT 'member',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        last_login TIMESTAMP
+      )
+    `);
+    console.log('   ✅ users table ready');
+
+    console.log('✅ Database initialization complete!');
+  } catch (error) {
+    console.error('❌ Error initializing database:', error.message);
+    // Don't exit - let the server start anyway, some routes may still work
+  }
+}
+
 const csv = require('csv-parser');
 const fs = require('fs');
 const multer = require('multer');
@@ -526,8 +613,17 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// Initialize database and start server
+initializeDatabase().then(() => {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}).catch(err => {
+  console.error('Failed to initialize database:', err);
+  // Start server anyway
+  app.listen(port, () => {
+    console.log(`Server running on port ${port} (database init failed)`);
+  });
 });
 
 module.exports = app;
