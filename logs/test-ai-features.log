@@ -1,0 +1,438 @@
+[2025-12-30T07:20:29.431Z] Starting comprehensive AI features test...
+
+[2025-12-30T07:20:29.446Z] 🔍 Testing master prompt system...
+[2025-12-30T07:20:29.447Z] ✅ Master prompt system working
+[2025-12-30T07:20:29.447Z] 🔍 Testing update prompt generation...
+[2025-12-30T07:20:29.448Z] ✅ Update prompt generation working
+[2025-12-30T07:20:29.448Z] 🔍 Testing AI integration structure...
+[2025-12-30T07:20:30.580Z] ✅ AI helper functions available
+[2025-12-30T07:20:30.581Z] 🔍 Testing win probability algorithm...
+[2025-12-30T07:20:30.581Z] ✅ Win probability calculation logic working
+[2025-12-30T07:20:30.582Z] 
+🏁 All AI feature tests completed successfully.
+[2025-12-30T07:20:30.582Z] 📋 Test Results Summary:
+[2025-12-30T07:20:30.582Z] - Master prompt system: PASS
+[2025-12-30T07:20:30.582Z] - Update prompt generation: PASS
+[2025-12-30T07:20:30.583Z] - AI integration structure: PASS
+[2025-12-30T07:20:30.583Z] - Win probability logic: PASS
+[2025-12-30T07:29:53.063Z] Starting comprehensive AI features test...
+
+[2025-12-30T07:29:53.069Z] 🔍 Testing master prompt system...
+[2025-12-30T07:29:53.070Z] ✅ Master prompt system working
+[2025-12-30T07:29:53.070Z] 🔍 Testing update prompt generation...
+[2025-12-30T07:29:53.070Z] ✅ Update prompt generation working
+[2025-12-30T07:29:53.070Z] 🔍 Testing AI integration structure...
+[2025-12-30T07:29:53.727Z] ✅ AI helper functions available
+[2025-12-30T07:29:53.728Z] 🔍 Testing win probability algorithm...
+[2025-12-30T07:29:53.728Z] ✅ Win probability calculation logic working
+[2025-12-30T07:29:53.729Z] 
+🏁 All AI feature tests completed successfully.
+[2025-12-30T07:29:53.729Z] 📋 Test Results Summary:
+[2025-12-30T07:29:53.729Z] - Master prompt system: PASS
+[2025-12-30T07:29:53.730Z] - Update prompt generation: PASS
+[2025-12-30T07:29:53.730Z] - AI integration structure: PASS
+[2025-12-30T07:29:53.730Z] - Win probability logic: PASS
+[2026-01-01T08:01:59.776Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:01:59.785Z] 🔍 Testing master prompt system...
+[2026-01-01T08:01:59.786Z] ✅ Master prompt system working
+[2026-01-01T08:01:59.787Z] 🔍 Testing update prompt generation...
+[2026-01-01T08:01:59.787Z] ✅ Update prompt generation working
+[2026-01-01T08:01:59.787Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:02:00.339Z] ✅ AI helper functions available
+[2026-01-01T08:02:00.339Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:02:00.339Z] ✅ Win probability calculation logic working
+[2026-01-01T08:02:00.339Z] 
+🏁 All AI feature tests completed successfully.
+[2026-01-01T08:02:00.339Z] 📋 Test Results Summary:
+[2026-01-01T08:02:00.339Z] - Master prompt system: PASS
+[2026-01-01T08:02:00.340Z] - Update prompt generation: PASS
+[2026-01-01T08:02:00.340Z] - AI integration structure: PASS
+[2026-01-01T08:02:00.340Z] - Win probability logic: PASS
+[2026-01-01T08:16:31.298Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:16:31.305Z] 🔍 Testing master prompt system...
+[2026-01-01T08:16:31.306Z] ✅ Master prompt system working
+[2026-01-01T08:16:31.306Z] 🔍 Testing update prompt generation...
+[2026-01-01T08:16:31.306Z] ✅ Update prompt generation working
+[2026-01-01T08:16:31.307Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:16:32.130Z] ✅ AI helper functions available
+[2026-01-01T08:16:32.130Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:16:32.131Z] ✅ Win probability calculation logic working
+[2026-01-01T08:16:32.131Z] 
+🏁 All AI feature tests completed successfully.
+[2026-01-01T08:16:32.131Z] 📋 Test Results Summary:
+[2026-01-01T08:16:32.132Z] - Master prompt system: PASS
+[2026-01-01T08:16:32.132Z] - Update prompt generation: PASS
+[2026-01-01T08:16:32.132Z] - AI integration structure: PASS
+[2026-01-01T08:16:32.132Z] - Win probability logic: PASS
+[2026-01-01T08:19:14.081Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:19:14.088Z] 🔍 Testing master prompt system...
+[2026-01-01T08:19:14.089Z] ✅ Master prompt system working
+[2026-01-01T08:19:14.089Z] 🔍 Testing update prompt generation...
+[2026-01-01T08:19:14.089Z] ✅ Update prompt generation working
+[2026-01-01T08:19:14.089Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:19:14.609Z] ✅ AI helper functions available
+[2026-01-01T08:19:14.609Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:19:14.609Z] ✅ Win probability calculation logic working
+[2026-01-01T08:19:14.610Z] 
+🏁 All AI feature tests completed successfully.
+[2026-01-01T08:19:14.610Z] 📋 Test Results Summary:
+[2026-01-01T08:19:14.610Z] - Master prompt system: PASS
+[2026-01-01T08:19:14.610Z] - Update prompt generation: PASS
+[2026-01-01T08:19:14.610Z] - AI integration structure: PASS
+[2026-01-01T08:19:14.610Z] - Win probability logic: PASS
+[2026-01-01T08:36:02.436Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:36:02.443Z] 🔍 Testing ABCDE framework...
+[2026-01-01T08:36:02.444Z] ✅ ABCDE framework structure valid
+[2026-01-01T08:36:02.444Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T08:36:02.444Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T08:36:02.445Z] ✅ Legal syllogism generation working
+[2026-01-01T08:36:02.445Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T08:36:02.445Z] ❌ Self-reflection functionality failed
+[2026-01-01T08:36:02.445Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T08:36:02.445Z] ✅ Dynamic few-shot examples working
+[2026-01-01T08:36:02.445Z] 🔍 Testing confidence score calculation...
+[2026-01-01T08:36:02.446Z] ✅ Confidence score calculation working
+[2026-01-01T08:36:02.446Z] 🔍 Testing prompt versioning system...
+[2026-01-01T08:36:03.013Z] ✅ Prompt versioning system working
+[2026-01-01T08:36:03.014Z] 🔍 Testing A/B testing framework...
+[2026-01-01T08:36:03.014Z] ✅ A/B testing framework working
+[2026-01-01T08:36:03.014Z] 🔍 Testing performance optimization...
+[2026-01-01T08:36:03.015Z] ✅ Performance optimization tracking working
+[2026-01-01T08:36:03.015Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T08:36:03.015Z] ❌ Enhanced master prompt system failed
+[2026-01-01T08:36:03.015Z] 🔍 Testing enhanced update prompt generation...
+[2026-01-01T08:36:03.016Z] ✅ Enhanced update prompt generation working
+[2026-01-01T08:36:03.016Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:36:03.016Z] ✅ AI helper functions available
+[2026-01-01T08:36:03.016Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:36:03.016Z] ✅ Win probability calculation logic working
+[2026-01-01T08:36:03.016Z] 
+🏁 All advanced AI feature tests completed successfully.
+[2026-01-01T08:36:03.016Z] 📋 Enhanced Test Results Summary:
+[2026-01-01T08:36:03.016Z] ABCDE Framework Tests:
+[2026-01-01T08:36:03.017Z] - ABCDE framework structure: PASS
+[2026-01-01T08:36:03.017Z] - ABCDE custom prompt generation: PASS
+[2026-01-01T08:36:03.017Z] - Legal syllogism generation: PASS
+[2026-01-01T08:36:03.017Z] - Self-reflection functionality: PASS
+[2026-01-01T08:36:03.017Z] - Dynamic few-shot examples: PASS
+[2026-01-01T08:36:03.017Z] - Confidence score calculation: PASS
+[2026-01-01T08:36:03.017Z] Advanced Prompt Engineering Tests:
+[2026-01-01T08:36:03.017Z] - Prompt versioning system: PASS
+[2026-01-01T08:36:03.017Z] - A/B testing framework: PASS
+[2026-01-01T08:36:03.017Z] - Performance optimization tracking: PASS
+[2026-01-01T08:36:03.017Z] - Enhanced master prompt system: PASS
+[2026-01-01T08:36:03.017Z] - Enhanced update prompt generation: PASS
+[2026-01-01T08:36:03.017Z] Legacy Compatibility Tests:
+[2026-01-01T08:36:03.018Z] - AI integration structure: PASS
+[2026-01-01T08:36:03.018Z] - Win probability logic: PASS
+[2026-01-01T08:36:22.069Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:36:22.080Z] 🔍 Testing ABCDE framework...
+[2026-01-01T08:36:22.081Z] ✅ ABCDE framework structure valid
+[2026-01-01T08:36:22.081Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T08:36:22.082Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T08:36:22.082Z] ✅ Legal syllogism generation working
+[2026-01-01T08:36:22.082Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T08:36:22.082Z] ❌ Self-reflection functionality failed
+[2026-01-01T08:36:22.082Z] Expected to find 'SELF-REFLECTION PROTOCOL' in: Analyze this grievance
+
+TERMINATION-SPECIFIC REFLECTION:
+1. VALIDATE progressive discipline was prop...
+[2026-01-01T08:36:22.083Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T08:36:22.083Z] ✅ Dynamic few-shot examples working
+[2026-01-01T08:36:22.083Z] 🔍 Testing confidence score calculation...
+[2026-01-01T08:36:22.083Z] ✅ Confidence score calculation working
+[2026-01-01T08:36:22.084Z] 🔍 Testing prompt versioning system...
+[2026-01-01T08:36:22.603Z] ✅ Prompt versioning system working
+[2026-01-01T08:36:22.603Z] 🔍 Testing A/B testing framework...
+[2026-01-01T08:36:22.604Z] ✅ A/B testing framework working
+[2026-01-01T08:36:22.604Z] 🔍 Testing performance optimization...
+[2026-01-01T08:36:22.604Z] ✅ Performance optimization tracking working
+[2026-01-01T08:36:22.604Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T08:36:22.604Z] ❌ Error during testing: getPersonaPrompt is not defined
+[2026-01-01T08:36:22.605Z] Stack trace: ReferenceError: getPersonaPrompt is not defined
+    at /home/whoisgadget/Desktop/union-shield/node-app/test-ai-features.js:153:30
+    at Object.<anonymous> (/home/whoisgadget/Desktop/union-shield/node-app/test-ai-features.js:238:3)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
+[2026-01-01T08:36:37.440Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:36:37.447Z] 🔍 Testing ABCDE framework...
+[2026-01-01T08:36:37.449Z] ✅ ABCDE framework structure valid
+[2026-01-01T08:36:37.449Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T08:36:37.449Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T08:36:37.449Z] ✅ Legal syllogism generation working
+[2026-01-01T08:36:37.449Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T08:36:37.450Z] ❌ Self-reflection functionality failed
+[2026-01-01T08:36:37.450Z] Expected to find 'SELF-REFLECTION PROTOCOL' in: Analyze this grievance
+
+TERMINATION-SPECIFIC REFLECTION:
+1. VALIDATE progressive discipline was prop...
+[2026-01-01T08:36:37.450Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T08:36:37.450Z] ✅ Dynamic few-shot examples working
+[2026-01-01T08:36:37.450Z] 🔍 Testing confidence score calculation...
+[2026-01-01T08:36:37.450Z] ✅ Confidence score calculation working
+[2026-01-01T08:36:37.452Z] 🔍 Testing prompt versioning system...
+[2026-01-01T08:36:38.079Z] ✅ Prompt versioning system working
+[2026-01-01T08:36:38.080Z] 🔍 Testing A/B testing framework...
+[2026-01-01T08:36:38.080Z] ✅ A/B testing framework working
+[2026-01-01T08:36:38.080Z] 🔍 Testing performance optimization...
+[2026-01-01T08:36:38.081Z] ✅ Performance optimization tracking working
+[2026-01-01T08:36:38.081Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T08:36:38.081Z] ❌ Enhanced master prompt system failed
+[2026-01-01T08:36:38.081Z] Strategist prompt contains ABCDE: false
+[2026-01-01T08:36:38.081Z] Litigator prompt contains ABCDE: false
+[2026-01-01T08:36:38.081Z] 🔍 Testing enhanced update prompt generation...
+[2026-01-01T08:36:38.082Z] ✅ Enhanced update prompt generation working
+[2026-01-01T08:36:38.082Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:36:38.082Z] ✅ AI helper functions available
+[2026-01-01T08:36:38.082Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:36:38.082Z] ✅ Win probability calculation logic working
+[2026-01-01T08:36:38.083Z] 
+🏁 All advanced AI feature tests completed successfully.
+[2026-01-01T08:36:38.083Z] 📋 Enhanced Test Results Summary:
+[2026-01-01T08:36:38.083Z] ABCDE Framework Tests:
+[2026-01-01T08:36:38.083Z] - ABCDE framework structure: PASS
+[2026-01-01T08:36:38.083Z] - ABCDE custom prompt generation: PASS
+[2026-01-01T08:36:38.083Z] - Legal syllogism generation: PASS
+[2026-01-01T08:36:38.083Z] - Self-reflection functionality: PASS
+[2026-01-01T08:36:38.083Z] - Dynamic few-shot examples: PASS
+[2026-01-01T08:36:38.083Z] - Confidence score calculation: PASS
+[2026-01-01T08:36:38.083Z] Advanced Prompt Engineering Tests:
+[2026-01-01T08:36:38.083Z] - Prompt versioning system: PASS
+[2026-01-01T08:36:38.083Z] - A/B testing framework: PASS
+[2026-01-01T08:36:38.083Z] - Performance optimization tracking: PASS
+[2026-01-01T08:36:38.083Z] - Enhanced master prompt system: PASS
+[2026-01-01T08:36:38.083Z] - Enhanced update prompt generation: PASS
+[2026-01-01T08:36:38.084Z] Legacy Compatibility Tests:
+[2026-01-01T08:36:38.084Z] - AI integration structure: PASS
+[2026-01-01T08:36:38.084Z] - Win probability logic: PASS
+[2026-01-01T08:38:59.758Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:38:59.764Z] 🔍 Testing ABCDE framework...
+[2026-01-01T08:38:59.765Z] ✅ ABCDE framework structure valid
+[2026-01-01T08:38:59.765Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T08:38:59.765Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T08:38:59.765Z] ✅ Legal syllogism generation working
+[2026-01-01T08:38:59.766Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T08:38:59.766Z] ✅ Self-reflection functionality working
+[2026-01-01T08:38:59.766Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T08:38:59.766Z] ✅ Dynamic few-shot examples working
+[2026-01-01T08:38:59.766Z] 🔍 Testing confidence score calculation...
+[2026-01-01T08:38:59.766Z] ✅ Confidence score calculation working
+[2026-01-01T08:38:59.766Z] 🔍 Testing prompt versioning system...
+[2026-01-01T08:39:00.242Z] ✅ Prompt versioning system working
+[2026-01-01T08:39:00.242Z] 🔍 Testing A/B testing framework...
+[2026-01-01T08:39:00.242Z] ✅ A/B testing framework working
+[2026-01-01T08:39:00.243Z] 🔍 Testing performance optimization...
+[2026-01-01T08:39:00.243Z] ✅ Performance optimization tracking working
+[2026-01-01T08:39:00.243Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T08:39:00.243Z] ✅ Enhanced master prompt system with ABCDE working
+[2026-01-01T08:39:00.243Z] 🔍 Testing enhanced update prompt generation...
+[2026-01-01T08:39:00.244Z] ✅ Enhanced update prompt generation working
+[2026-01-01T08:39:00.244Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:39:00.244Z] ✅ AI helper functions available
+[2026-01-01T08:39:00.244Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:39:00.244Z] ✅ Win probability calculation logic working
+[2026-01-01T08:39:00.244Z] 
+🏁 All advanced AI feature tests completed successfully.
+[2026-01-01T08:39:00.244Z] 📋 Enhanced Test Results Summary:
+[2026-01-01T08:39:00.244Z] ABCDE Framework Tests:
+[2026-01-01T08:39:00.244Z] - ABCDE framework structure: PASS
+[2026-01-01T08:39:00.244Z] - ABCDE custom prompt generation: PASS
+[2026-01-01T08:39:00.244Z] - Legal syllogism generation: PASS
+[2026-01-01T08:39:00.244Z] - Self-reflection functionality: PASS
+[2026-01-01T08:39:00.244Z] - Dynamic few-shot examples: PASS
+[2026-01-01T08:39:00.245Z] - Confidence score calculation: PASS
+[2026-01-01T08:39:00.245Z] Advanced Prompt Engineering Tests:
+[2026-01-01T08:39:00.245Z] - Prompt versioning system: PASS
+[2026-01-01T08:39:00.245Z] - A/B testing framework: PASS
+[2026-01-01T08:39:00.245Z] - Performance optimization tracking: PASS
+[2026-01-01T08:39:00.245Z] - Enhanced master prompt system: PASS
+[2026-01-01T08:39:00.245Z] - Enhanced update prompt generation: PASS
+[2026-01-01T08:39:00.245Z] Legacy Compatibility Tests:
+[2026-01-01T08:39:00.245Z] - AI integration structure: PASS
+[2026-01-01T08:39:00.245Z] - Win probability logic: PASS
+[2026-01-01T08:48:04.699Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:48:04.706Z] 🔍 Testing ABCDE framework...
+[2026-01-01T08:48:04.708Z] ✅ ABCDE framework structure valid
+[2026-01-01T08:48:04.708Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T08:48:04.708Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T08:48:04.709Z] ✅ Legal syllogism generation working
+[2026-01-01T08:48:04.709Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T08:48:04.709Z] ✅ Self-reflection functionality working
+[2026-01-01T08:48:04.709Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T08:48:04.711Z] ✅ Dynamic few-shot examples working
+[2026-01-01T08:48:04.711Z] 🔍 Testing confidence score calculation...
+[2026-01-01T08:48:04.711Z] ✅ Confidence score calculation working
+[2026-01-01T08:48:04.712Z] 🔍 Testing prompt versioning system...
+[2026-01-01T08:48:05.237Z] ✅ Prompt versioning system working
+[2026-01-01T08:48:05.237Z] 🔍 Testing A/B testing framework...
+[2026-01-01T08:48:05.238Z] ✅ A/B testing framework working
+[2026-01-01T08:48:05.238Z] 🔍 Testing performance optimization...
+[2026-01-01T08:48:05.238Z] ✅ Performance optimization tracking working
+[2026-01-01T08:48:05.239Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T08:48:05.239Z] ✅ Enhanced master prompt system with ABCDE working
+[2026-01-01T08:48:05.239Z] 🔍 Testing enhanced update prompt generation...
+[2026-01-01T08:48:05.239Z] ✅ Enhanced update prompt generation working
+[2026-01-01T08:48:05.239Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:48:05.239Z] ✅ AI helper functions available
+[2026-01-01T08:48:05.239Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:48:05.240Z] ✅ Win probability calculation logic working
+[2026-01-01T08:48:05.240Z] 🔍 Testing case similarity matching...
+[2026-01-01T08:48:05.240Z] ❌ Case feature extraction failed
+[2026-01-01T08:48:05.241Z] ❌ Error during testing: Cannot read properties of undefined (reading 'filter')
+[2026-01-01T08:48:05.241Z] Stack trace: TypeError: Cannot read properties of undefined (reading 'filter')
+    at calculateCaseSimilarity (/home/whoisgadget/Desktop/union-shield/node-app/master-prompt.js:353:42)
+    at /home/whoisgadget/Desktop/union-shield/node-app/test-ai-features.js:235:24
+    at Object.<anonymous> (/home/whoisgadget/Desktop/union-shield/node-app/test-ai-features.js:342:3)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
+[2026-01-01T08:49:11.648Z] Starting comprehensive AI features test...
+
+[2026-01-01T08:49:11.654Z] 🔍 Testing ABCDE framework...
+[2026-01-01T08:49:11.655Z] ✅ ABCDE framework structure valid
+[2026-01-01T08:49:11.656Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T08:49:11.656Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T08:49:11.656Z] ✅ Legal syllogism generation working
+[2026-01-01T08:49:11.656Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T08:49:11.656Z] ✅ Self-reflection functionality working
+[2026-01-01T08:49:11.656Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T08:49:11.657Z] ✅ Dynamic few-shot examples working
+[2026-01-01T08:49:11.658Z] 🔍 Testing confidence score calculation...
+[2026-01-01T08:49:11.658Z] ✅ Confidence score calculation working
+[2026-01-01T08:49:11.658Z] 🔍 Testing prompt versioning system...
+[2026-01-01T08:49:12.082Z] ✅ Prompt versioning system working
+[2026-01-01T08:49:12.082Z] 🔍 Testing A/B testing framework...
+[2026-01-01T08:49:12.082Z] ✅ A/B testing framework working
+[2026-01-01T08:49:12.082Z] 🔍 Testing performance optimization...
+[2026-01-01T08:49:12.083Z] ✅ Performance optimization tracking working
+[2026-01-01T08:49:12.083Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T08:49:12.083Z] ✅ Enhanced master prompt system with ABCDE working
+[2026-01-01T08:49:12.083Z] 🔍 Testing enhanced update prompt generation...
+[2026-01-01T08:49:12.083Z] ✅ Enhanced update prompt generation working
+[2026-01-01T08:49:12.084Z] 🔍 Testing AI integration structure...
+[2026-01-01T08:49:12.084Z] ✅ AI helper functions available
+[2026-01-01T08:49:12.084Z] 🔍 Testing win probability algorithm...
+[2026-01-01T08:49:12.084Z] ✅ Win probability calculation logic working
+[2026-01-01T08:49:12.084Z] 🔍 Testing case similarity matching...
+[2026-01-01T08:49:12.084Z] ❌ Case feature extraction failed
+[2026-01-01T08:49:12.085Z] ✅ Case similarity calculation working
+[2026-01-01T08:49:12.085Z] ❌ Similar case retrieval failed
+[2026-01-01T08:49:12.085Z] 🔍 Testing multi-issue analysis capabilities...
+[2026-01-01T08:49:12.086Z] ✅ Multi-issue analysis working
+[2026-01-01T08:49:12.086Z] 🔍 Testing performance-based example curation...
+[2026-01-01T08:49:12.087Z] ✅ Performance tracking working
+[2026-01-01T08:49:12.087Z] ❌ Performance-weighted examples failed
+[2026-01-01T08:49:12.087Z] ✅ Auto-curation working
+[2026-01-01T08:49:12.087Z] 
+🏁 All high-priority advanced AI feature tests completed successfully.
+[2026-01-01T08:49:12.087Z] 📋 Complete Test Results Summary:
+[2026-01-01T08:49:12.087Z] ABCDE Framework Tests:
+[2026-01-01T08:49:12.087Z] - ABCDE framework structure: PASS
+[2026-01-01T08:49:12.087Z] - ABCDE custom prompt generation: PASS
+[2026-01-01T08:49:12.087Z] - Legal syllogism generation: PASS
+[2026-01-01T08:49:12.087Z] - Self-reflection functionality: PASS
+[2026-01-01T08:49:12.087Z] - Dynamic few-shot examples: PASS
+[2026-01-01T08:49:12.088Z] - Confidence score calculation: PASS
+[2026-01-01T08:49:12.088Z] Advanced Prompt Engineering Tests:
+[2026-01-01T08:49:12.088Z] - Prompt versioning system: PASS
+[2026-01-01T08:49:12.088Z] - A/B testing framework: PASS
+[2026-01-01T08:49:12.088Z] - Performance optimization tracking: PASS
+[2026-01-01T08:49:12.088Z] - Enhanced master prompt system: PASS
+[2026-01-01T08:49:12.088Z] - Enhanced update prompt generation: PASS
+[2026-01-01T08:49:12.088Z] High-Priority Enhancement Tests:
+[2026-01-01T08:49:12.088Z] - Case similarity matching: PASS
+[2026-01-01T08:49:12.088Z] - Multi-issue analysis capabilities: PASS
+[2026-01-01T08:49:12.088Z] - Performance-based example curation: PASS
+[2026-01-01T08:49:12.088Z] Legacy Compatibility Tests:
+[2026-01-01T08:49:12.088Z] - AI integration structure: PASS
+[2026-01-01T08:49:12.088Z] - Win probability logic: PASS
+[2026-01-01T09:12:39.752Z] Starting comprehensive AI features test...
+
+[2026-01-01T09:12:39.759Z] 🔍 Testing ABCDE framework...
+[2026-01-01T09:12:39.764Z] ✅ ABCDE framework structure valid
+[2026-01-01T09:12:39.765Z] ✅ ABCDE custom prompt generation working
+[2026-01-01T09:12:39.765Z] 🔍 Testing legal syllogism generation...
+[2026-01-01T09:12:39.765Z] ✅ Legal syllogism generation working
+[2026-01-01T09:12:39.765Z] 🔍 Testing self-reflection functionality...
+[2026-01-01T09:12:39.765Z] ✅ Self-reflection functionality working
+[2026-01-01T09:12:39.766Z] 🔍 Testing dynamic few-shot examples...
+[2026-01-01T09:12:39.767Z] ✅ Dynamic few-shot examples working
+[2026-01-01T09:12:39.767Z] 🔍 Testing confidence score calculation...
+[2026-01-01T09:12:39.768Z] ✅ Confidence score calculation working
+[2026-01-01T09:12:39.768Z] 🔍 Testing prompt versioning system...
+[2026-01-01T09:12:40.339Z] ✅ Prompt versioning system working
+[2026-01-01T09:12:40.339Z] 🔍 Testing A/B testing framework...
+[2026-01-01T09:12:40.339Z] ✅ A/B testing framework working
+[2026-01-01T09:12:40.339Z] 🔍 Testing performance optimization...
+[2026-01-01T09:12:40.340Z] ✅ Performance optimization tracking working
+[2026-01-01T09:12:40.340Z] 🔍 Testing enhanced master prompt system...
+[2026-01-01T09:12:40.340Z] ✅ Enhanced master prompt system with ABCDE working
+[2026-01-01T09:12:40.340Z] 🔍 Testing enhanced update prompt generation...
+[2026-01-01T09:12:40.340Z] ✅ Enhanced update prompt generation working
+[2026-01-01T09:12:40.340Z] 🔍 Testing AI integration structure...
+[2026-01-01T09:12:40.340Z] ✅ AI helper functions available
+[2026-01-01T09:12:40.340Z] 🔍 Testing win probability algorithm...
+[2026-01-01T09:12:40.340Z] ✅ Win probability calculation logic working
+[2026-01-01T09:12:40.340Z] 🔍 Testing case similarity matching...
+[2026-01-01T09:12:40.341Z] ❌ Case feature extraction failed
+[2026-01-01T09:12:40.341Z] ❌ Case similarity calculation failed
+[2026-01-01T09:12:40.342Z] ❌ Similar case retrieval failed
+[2026-01-01T09:12:40.342Z] 🔍 Testing multi-issue analysis capabilities...
+[2026-01-01T09:12:40.343Z] ✅ Multi-issue analysis working
+[2026-01-01T09:12:40.343Z] 🔍 Testing performance-based example curation...
+[2026-01-01T09:12:40.343Z] ✅ Performance tracking working
+[2026-01-01T09:12:40.343Z] ❌ Performance-weighted examples failed
+[2026-01-01T09:12:40.343Z] ✅ Auto-curation working
+[2026-01-01T09:12:40.343Z] 
+🏁 All high-priority advanced AI feature tests completed successfully.
+[2026-01-01T09:12:40.343Z] 📋 Complete Test Results Summary:
+[2026-01-01T09:12:40.344Z] ABCDE Framework Tests:
+[2026-01-01T09:12:40.344Z] - ABCDE framework structure: PASS
+[2026-01-01T09:12:40.344Z] - ABCDE custom prompt generation: PASS
+[2026-01-01T09:12:40.344Z] - Legal syllogism generation: PASS
+[2026-01-01T09:12:40.344Z] - Self-reflection functionality: PASS
+[2026-01-01T09:12:40.344Z] - Dynamic few-shot examples: PASS
+[2026-01-01T09:12:40.344Z] - Confidence score calculation: PASS
+[2026-01-01T09:12:40.344Z] Advanced Prompt Engineering Tests:
+[2026-01-01T09:12:40.344Z] - Prompt versioning system: PASS
+[2026-01-01T09:12:40.344Z] - A/B testing framework: PASS
+[2026-01-01T09:12:40.344Z] - Performance optimization tracking: PASS
+[2026-01-01T09:12:40.344Z] - Enhanced master prompt system: PASS
+[2026-01-01T09:12:40.344Z] - Enhanced update prompt generation: PASS
+[2026-01-01T09:12:40.344Z] High-Priority Enhancement Tests:
+[2026-01-01T09:12:40.344Z] - Case similarity matching: PASS
+[2026-01-01T09:12:40.344Z] - Multi-issue analysis capabilities: PASS
+[2026-01-01T09:12:40.344Z] - Performance-based example curation: PASS
+[2026-01-01T09:12:40.344Z] Legacy Compatibility Tests:
+[2026-01-01T09:12:40.344Z] - AI integration structure: PASS
+[2026-01-01T09:12:40.344Z] - Win probability logic: PASS
+[2026-01-01T09:25:01.175Z] Starting comprehensive AI features test...
+
+[2026-01-01T09:25:01.183Z] 🔍 Testing ABCDE framework...
+[2026-01-01T09:25:01.190Z] ❌ Error during testing: aiResponseCache is not defined
+[2026-01-01T09:25:01.191Z] Stack trace: ReferenceError: aiResponseCache is not defined
+    at Object.<anonymous> (/home/whoisgadget/Desktop/union-shield/node-app/master-prompt.js:3782:3)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at /home/whoisgadget/Desktop/union-shield/node-app/test-ai-features.js:33:9
+    at Object.<anonymous> (/home/whoisgadget/Desktop/union-shield/node-app/test-ai-features.js:574:3)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)

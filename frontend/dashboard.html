@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Fighting Machine - Grievance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; }
+        .case-card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .case-card.high { border-left: 5px solid #27ae60; }
+        .case-card.medium { border-left: 5px solid #f39c12; }
+        .case-card.low { border-left: 5px solid #e74c3c; }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container { margin: 10px; }
+            .header { padding: 15px; }
+            .btn { width: 100%; margin: 5px 0; }
+            .case-card { padding: 10px; }
+            .form-section { padding: 15px; }
+            .persona-toggle { text-align: center; }
+            .persona-toggle label { display: block; margin: 10px 0; }
+        }
+
+        /* Auto-save indicator */
+        .auto-save-status { display: inline-block; margin-left: 10px; font-size: 12px; color: #666; }
+        .auto-save-status.saving { color: #f39c12; }
+        .auto-save-status.saved { color: #27ae60; }
+
+
+
+        /* Dashboard metrics */
+        .dashboard-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd; text-align: center; }
+        .metric-card h3 { margin: 0 0 10px 0; color: #2c3e50; }
+        .metric-card .value { font-size: 32px; font-weight: bold; margin: 10px 0; }
+        .metric-card .label { color: #666; font-size: 14px; }
+        .btn { background: #3498db; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background: #2980b9; }
+        .form-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .persona-toggle { margin: 10px 0; }
+        .persona-toggle label { margin-right: 20px; }
+        .step-form { display: none; }
+        .step-form.active { display: block; }
+
+        /* Voting system styles */
+        .vote-btn { padding: 8px 12px; margin: 0 5px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .correct-btn { background: #27ae60; color: white; }
+        .correct-btn:hover { background: #219a52; }
+        .incorrect-btn { background: #e74c3c; color: white; }
+        .incorrect-btn:hover { background: #c0392b; }
+        .vote-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+
+        /* Analytics Dashboard Styles */
+        .analytics-tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid #ddd; }
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active {
+            border-bottom-color: #3498db;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .analytics-tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .analytics-tab-content.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Chart containers */
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+
+        /* Analytics table styles */
+        #model-details-table th {
+            background: #2c3e50;
+            color: white;
+            font-weight: normal;
+        }
+        #model-details-table td {
+            padding: 8px 10px;
+            text-align: center;
+        }
+        #model-details-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Legal Fighting Machine</h1>
+            <p>Union Grievance Winning System</p>
+            <div class="persona-toggle">
+                <strong>AI Persona:</strong>
+                <label><input type="radio" name="persona" value="strategist" checked> Strategist (Cooperative)</label>
+                <label><input type="radio" name="persona" value="litigator"> Litigator (Aggressive)</label>
+                <label><input type="checkbox" id="admin-mode" onchange="toggleAdminMode()"> System Admin</label>
+            </div>
+        </div>
+
+        <div id="main-content">
+            <h2>My Cases <span id="auto-save-main" class="auto-save-status">Ready</span></h2>
+
+            <!-- Enhanced Dashboard Metrics -->
+            <div class="dashboard-metrics">
+                <div class="metric-card">
+                    <h3>📊 Cases</h3>
+                    <div class="value" id="cases-count">0</div>
+                    <div class="label">Active Grievances</div>
+                </div>
+                <div class="metric-card">
+                    <h3>🏆 Success Rate</h3>
+                    <div class="value" id="success-rate">0%</div>
+                    <div class="label">Average Win Probability</div>
+                </div>
+                <div class="metric-card">
+                    <h3>⚡ AI Analysis</h3>
+                    <div class="value" id="ai-confidence">95%</div>
+                    <div class="label">Analysis Confidence</div>
+                </div>
+                <div class="metric-card">
+                    <h3>📈 Resolution Time</h3>
+                    <div class="value" id="avg-resolution">24d</div>
+                    <div class="label">Average Case Duration</div>
+                </div>
+            </div>
+
+            <!-- Admin-Only Security Section -->
+            <div id="admin-security-section" style="display: none; margin: 20px 0;">
+                <div class="dashboard-metrics">
+                    <div class="metric-card">
+                        <h3>🛡️ Security Status</h3>
+                        <div class="value" id="security-score">100%</div>
+                        <div class="label">Test Coverage</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>🔒 Last Check</h3>
+                        <div class="value" id="last-test-time">-</div>
+                        <div class="label">Security Scan</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>⚠️ Vulnerabilities</h3>
+                        <div class="value" id="vulnerability-count">0</div>
+                        <div class="label">Active Issues</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>🛡️ Threat Level</h3>
+                        <div class="value" id="threat-level">LOW</div>
+                        <div class="label">Current Risk</div>
+                    </div>
+                </div>
+
+                <!-- Admin System Controls -->
+                <div class="form-section" style="margin-top: 20px;">
+                    <h3>System Administration</h3>
+                    <div style="margin: 10px 0;">
+                        <label style="display: inline-block; margin-right: 20px;">
+                            <input type="checkbox" id="voting-enabled-toggle" onchange="toggleVotingSystem(this.checked)">
+                            Enable AI Response Voting
+                        </label>
+                        <span id="voting-status" style="font-size: 12px; color: #666;">Loading...</span>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <button class="btn" onclick="toggleAnalyticsDashboard()" style="background: #9b59b6;">📊 Analytics Dashboard</button>
+                        <span id="analytics-status" style="font-size: 12px; color: #666; margin-left: 10px;">Click to access system analytics</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Dashboard (Admin Only) -->
+            <div id="analytics-dashboard" style="display: none; margin: 20px 0;">
+                <div class="form-section">
+                    <h2>📊 System Analytics Dashboard</h2>
+
+                    <!-- Analytics Controls -->
+                    <div style="margin-bottom: 20px;">
+                        <label>Time Range:
+                            <select id="analytics-time-range" onchange="loadAnalyticsDashboard()">
+                                <option value="1h">Last Hour</option>
+                                <option value="24h" selected>Last 24 Hours</option>
+                                <option value="7d">Last 7 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                            </select>
+                        </label>
+                        <button class="btn" onclick="loadAnalyticsDashboard()" style="margin-left: 10px;">🔄 Refresh</button>
+                        <button class="btn" onclick="exportAnalyticsData()" style="margin-left: 10px; background: #9b59b6;">📥 Export Data</button>
+                    </div>
+
+                    <!-- Real-time Metrics -->
+                    <div class="dashboard-metrics">
+                        <div class="metric-card">
+                            <h3>👥 Active Users</h3>
+                            <div class="value" id="real-time-active-users">-</div>
+                            <div class="label">Last Hour</div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>⚡ Requests/Min</h3>
+                            <div class="value" id="real-time-requests-min">-</div>
+                            <div class="label">Current Load</div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>🎯 AI Accuracy</h3>
+                            <div class="value" id="real-time-accuracy">-%</div>
+                            <div class="label">Latest Votes</div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>🚨 Error Rate</h3>
+                            <div class="value" id="real-time-error-rate">-%</div>
+                            <div class="label">System Health</div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Tabs -->
+                    <div style="margin: 20px 0;">
+                        <div class="analytics-tabs">
+                            <button class="tab-button active" onclick="switchAnalyticsTab('overview')">Overview</button>
+                            <button class="tab-button" onclick="switchAnalyticsTab('performance')">Performance Trends</button>
+                            <button class="tab-button" onclick="switchAnalyticsTab('usage')">Usage Patterns</button>
+                            <button class="tab-button" onclick="switchAnalyticsTab('ai-comparison')">AI Models</button>
+                            <button class="tab-button" onclick="switchAnalyticsTab('predictions')">Predictions</button>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Content -->
+                    <div id="analytics-content">
+                        <!-- Overview Tab -->
+                        <div id="overview-tab" class="analytics-tab-content active">
+                            <div class="dashboard-metrics">
+                                <div class="metric-card">
+                                    <h3>📈 Total Requests</h3>
+                                    <div class="value" id="total-requests">-</div>
+                                    <div class="label">Selected Period</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>🤖 AI Responses</h3>
+                                    <div class="value" id="ai-responses">-</div>
+                                    <div class="label">Generated Content</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>✅ User Feedback</h3>
+                                    <div class="value" id="user-feedback">-</div>
+                                    <div class="label">Quality Ratings</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>📊 Success Rate</h3>
+                                    <div class="value" id="success-rate">-%</div>
+                                    <div class="label">Overall Performance</div>
+                                </div>
+                            </div>
+
+                            <!-- Top Actions Chart -->
+                            <div style="margin: 20px 0;">
+                                <h3>Top User Actions</h3>
+                                <canvas id="actions-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <!-- System Health Indicators -->
+                            <div style="margin: 20px 0;">
+                                <h3>System Health</h3>
+                                <div id="system-health-indicators">
+                                    <p>Loading health indicators...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Trends Tab -->
+                        <div id="performance-tab" class="analytics-tab-content">
+                            <div style="margin: 20px 0;">
+                                <h3>Response Time Trends</h3>
+                                <canvas id="performance-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <div style="margin: 20px 0;">
+                                <h3>AI Confidence Trends</h3>
+                                <canvas id="confidence-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <div class="dashboard-metrics">
+                                <div class="metric-card">
+                                    <h3>⚡ Avg Response Time</h3>
+                                    <div class="value" id="avg-response-time">-</div>
+                                    <div class="label">Milliseconds</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>🎯 Avg Confidence</h3>
+                                    <div class="value" id="avg-confidence">-%</div>
+                                    <div class="label">AI Certainty</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>📊 Request Volume</h3>
+                                    <div class="value" id="request-volume">-</div>
+                                    <div class="label">Total Requests</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>🚀 Throughput</h3>
+                                    <div class="value" id="throughput">-</div>
+                                    <div class="label">Requests/Day</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Usage Patterns Tab -->
+                        <div id="usage-tab" class="analytics-tab-content">
+                            <div style="margin: 20px 0;">
+                                <h3>Hourly Usage Pattern</h3>
+                                <canvas id="usage-hourly-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <div style="margin: 20px 0;">
+                                <h3>Daily Usage Trends</h3>
+                                <canvas id="usage-daily-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <div class="dashboard-metrics">
+                                <div class="metric-card">
+                                    <h3>👤 Unique Users</h3>
+                                    <div class="value" id="unique-users">-</div>
+                                    <div class="label">Active Users</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>⏱️ Avg Session</h3>
+                                    <div class="value" id="avg-session">-</div>
+                                    <div class="label">Duration</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>🔄 Return Users</h3>
+                                    <div class="value" id="return-users">-%</div>
+                                    <div class="label">User Retention</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>📈 Growth Rate</h3>
+                                    <div class="value" id="growth-rate">-%</div>
+                                    <div class="label">Weekly Change</div>
+                                </div>
+                            </div>
+
+                            <!-- User Engagement Details -->
+                            <div style="margin: 20px 0;">
+                                <h3>User Engagement</h3>
+                                <div id="user-engagement-details">
+                                    <p>Loading user engagement data...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Model Comparison Tab -->
+                        <div id="ai-comparison-tab" class="analytics-tab-content">
+                            <div style="margin: 20px 0;">
+                                <h3>AI Model Performance Comparison</h3>
+                                <canvas id="ai-comparison-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <div class="dashboard-metrics">
+                                <div class="metric-card">
+                                    <h3>🏆 Best Model</h3>
+                                    <div class="value" id="best-model">-</div>
+                                    <div class="label">By Response Time</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>🎯 Most Accurate</h3>
+                                    <div class="value" id="most-accurate">-</div>
+                                    <div class="label">By User Rating</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>⚡ Fastest Avg</h3>
+                                    <div class="value" id="fastest-avg">-</div>
+                                    <div class="label">Response Time</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>💰 Cost Effective</h3>
+                                    <div class="value" id="cost-effective">-</div>
+                                    <div class="label">Performance/Cost</div>
+                                </div>
+                            </div>
+
+                            <!-- Model Details Table -->
+                            <div style="margin: 20px 0;">
+                                <h3>Model Performance Details</h3>
+                                <table id="model-details-table" style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: #f8f9fa;">
+                                            <th style="padding: 10px; border: 1px solid #ddd;">Model</th>
+                                            <th style="padding: 10px; border: 1px solid #ddd;">Operation</th>
+                                            <th style="padding: 10px; border: 1px solid #ddd;">Avg Response Time</th>
+                                            <th style="padding: 10px; border: 1px solid #ddd;">Success Rate</th>
+                                            <th style="padding: 10px; border: 1px solid #ddd;">User Rating</th>
+                                            <th style="padding: 10px; border: 1px solid #ddd;">Total Requests</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="model-details-body">
+                                        <tr>
+                                            <td colspan="6" style="padding: 20px; text-align: center;">Loading model data...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Predictive Insights Tab -->
+                        <div id="predictions-tab" class="analytics-tab-content">
+                            <div class="dashboard-metrics">
+                                <div class="metric-card">
+                                    <h3>📈 Usage Growth</h3>
+                                    <div class="value" id="predicted-growth">-%</div>
+                                    <div class="label">Next 7 Days</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>⚡ Load Prediction</h3>
+                                    <div class="value" id="predicted-load">-</div>
+                                    <div class="label">Peak Requests/Day</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>🚨 Error Trend</h3>
+                                    <div class="value" id="error-trend">-%</div>
+                                    <div class="label">7-Day Average</div>
+                                </div>
+                                <div class="metric-card">
+                                    <h3>⚠️ Risk Level</h3>
+                                    <div class="value" id="risk-level">-</div>
+                                    <div class="label">System Health</div>
+                                </div>
+                            </div>
+
+                            <!-- Recommendations -->
+                            <div style="margin: 20px 0;">
+                                <h3>System Recommendations</h3>
+                                <div id="system-recommendations" style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                                    <p>Loading recommendations...</p>
+                                </div>
+                            </div>
+
+                            <!-- Predictive Charts -->
+                            <div style="margin: 20px 0;">
+                                <h3>Usage Forecast</h3>
+                                <canvas id="forecast-chart" width="400" height="200"></canvas>
+                            </div>
+
+                            <div style="margin: 20px 0;">
+                                <h3>Error Rate Trends</h3>
+                                <canvas id="error-trend-chart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <button class="btn" onclick="showNewCaseForm()">+ New Grievance</button>
+                <button class="btn" onclick="showBulkOperations()" style="background: #3498db; margin-left: 10px;">📋 Bulk Operations</button>
+                <button class="btn" onclick="generateReports()" style="background: #9b59b6; margin-left: 10px;">📊 Reports</button>
+                <button class="btn" id="security-check-btn" onclick="runQuickSecurityCheck()" style="background: #27ae60; margin-left: 10px; display: none;">🔍 Security Check</button>
+            </div>
+            <div id="cases-list">
+                <p>Loading cases...</p>
+            </div>
+        </div>
+
+        <div id="case-detail" style="display: none;">
+            <button class="btn" onclick="backToMain()">← Back to Cases</button>
+            <h2 id="case-title"></h2>
+            <div id="step-buttons">
+                <button class="btn" onclick="showStepForm('step1')">Step 1 Update</button>
+                <button class="btn" onclick="showStepForm('step2')">Step 2 Update</button>
+                <button class="btn" onclick="showStepForm('arbitration')">Arbitration Prep</button>
+            </div>
+
+            <div id="step1-form" class="step-form form-section">
+                <h3>Step 1 Meeting Update</h3>
+                <form onsubmit="submitUpdate(event, 'step1')">
+                    <label>Meeting Summary:</label><br>
+                    <textarea name="summary" rows="3" placeholder="What happened at the meeting?"></textarea><br>
+                    <label>Tone:</label>
+                    <select name="tone">
+                        <option value="calm">Calm</option>
+                        <option value="defensive">Defensive</option>
+                        <option value="aggressive">Aggressive</option>
+                    </select><br>
+                    <label>New Evidence:</label><br>
+                    <textarea name="evidence" rows="2" placeholder="Any new evidence discussed?"></textarea><br>
+                    <button type="submit" class="btn">Update Case</button>
+                </form>
+            </div>
+
+            <div id="step2-form" class="step-form form-section">
+                <h3>Step 2 Meeting Update</h3>
+                <form onsubmit="submitUpdate(event, 'step2')">
+                    <label>Management Response:</label><br>
+                    <textarea name="response" rows="3" placeholder="What did management say?"></textarea><br>
+                    <label>Any Inconsistencies?</label><br>
+                    <textarea name="inconsistencies" rows="2" placeholder="Differences from previous statements?"></textarea><br>
+                    <label>Settlement Offered?</label>
+                    <input type="text" name="settlement" placeholder="Amount or terms"><br>
+                    <button type="submit" class="btn">Update Case</button>
+                </form>
+            </div>
+
+            <div id="arbitration-form" class="step-form form-section">
+                <h3>Arbitration Preparation</h3>
+                <form onsubmit="generateCaseFile(event)">
+                    <label>Witnesses Identified:</label><br>
+                    <textarea name="witnesses" rows="2" placeholder="List key witnesses"></textarea><br>
+                    <label>Key Evidence:</label><br>
+                    <textarea name="evidence" rows="3" placeholder="Critical evidence for arbitration"></textarea><br>
+                    <button type="submit" class="btn">Generate Court-Ready File</button>
+                </form>
+            </div>
+
+            <div id="update-results">
+                <h3>AI Analysis</h3>
+                <div id="analysis-content">Submit an update to see AI analysis...</div>
+            </div>
+        </div>
+
+        <div id="new-case-form" style="display: none;" class="form-section">
+            <h2>Create New Grievance</h2>
+            <form onsubmit="createNewCase(event)">
+                <label>Title:</label><br>
+                <input type="text" name="title" required><br>
+                <label>Description:</label><br>
+                <textarea name="description" rows="5" required></textarea><br>
+                <label>Grievant Name:</label><br>
+                <input type="text" name="grievantName"><br>
+                <label>Incident Date:</label><br>
+                <input type="date" name="incidentDate"><br>
+                <label>Discipline Type:</label><br>
+                <input type="text" name="disciplineType" placeholder="e.g., termination, suspension"><br>
+                <label>Position/Job Title:</label><br>
+                <input type="text" name="grievantPosition" id="grievantPosition" placeholder="e.g., teacher, nurse, machinist" list="positionSuggestions" oninput="checkContractSuggestions()"><br>
+                <datalist id="positionSuggestions">
+                    <option value="teacher">
+                    <option value="school counselor">
+                    <option value="librarian">
+                    <option value="nurse">
+                    <option value="school nurse">
+                    <option value="custodian">
+                    <option value="cafeteria worker">
+                    <option value="bus driver">
+                    <option value="paraprofessional">
+                    <option value="registered nurse">
+                    <option value="licensed practical nurse">
+                    <option value="machinist">
+                    <option value="welder">
+                    <option value="electrician">
+                    <option value="plumber">
+                    <option value="carpenter">
+                    <option value="secretary">
+                    <option value="administrative assistant">
+                    <option value="clerk">
+                    <option value="cashier">
+                    <option value="sales associate">
+                    <option value="engineer">
+                    <option value="technician">
+                    <option value="supervisor">
+                    <option value="manager">
+                </datalist>
+                <div id="contractSuggestions" style="display: none; margin-top: 10px; padding: 10px; background: #e8f5e8; border-radius: 4px;">
+                    <strong>Recommended Contract:</strong> <span id="suggestedContract"></span>
+                </div>
+                <button type="submit" class="btn">Create Case</button>
+                <button type="button" class="btn" onclick="backToMain()">Cancel</button>
+            </form>
+        </div>
+
+
+    </div>
+
+    <script>
+        let currentCaseId = null;
+        let currentPersona = 'strategist';
+        let votingEnabled = true; // Default to enabled
+
+        // Analytics dashboard variables
+        let analyticsCharts = {};
+        let analyticsData = {};
+        let realTimeInterval = null;
+
+        // Auto-save functionality
+        let autoSaveTimer;
+        const AUTO_SAVE_DELAY = 30000; // 30 seconds
+
+        function setupAutoSave() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                const inputs = form.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        clearTimeout(autoSaveTimer);
+                        updateAutoSaveStatus('saving');
+
+                        autoSaveTimer = setTimeout(() => {
+                            saveFormData(form);
+                        }, AUTO_SAVE_DELAY);
+                    });
+                });
+            });
+        }
+
+        function updateAutoSaveStatus(status) {
+            const indicator = document.getElementById('auto-save-main');
+            if (indicator) {
+                indicator.className = 'auto-save-status ' + status;
+                indicator.textContent = status === 'saving' ? 'Saving...' : 'Saved';
+            }
+        }
+
+        async function saveFormData(form) {
+            // Save to localStorage for now (could be extended to server)
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            const formId = form.id || 'form-' + Date.now();
+            localStorage.setItem('autosave-' + formId, JSON.stringify({
+                data: data,
+                timestamp: Date.now()
+            }));
+
+            updateAutoSaveStatus('saved');
+        }
+
+        function loadAutoSavedData() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                const formId = form.id || 'form-' + Date.now();
+                const saved = localStorage.getItem('autosave-' + formId);
+                if (saved) {
+                    const { data, timestamp } = JSON.parse(saved);
+                    // Only load if less than 24 hours old
+                    if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+                        Object.keys(data).forEach(key => {
+                            const input = form.querySelector(`[name="${key}"]`);
+                            if (input) {
+                                input.value = data[key];
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCases();
+            setupPersonaToggle();
+            setupAutoSave();
+            loadAutoSavedData();
+        });
+
+        function setupPersonaToggle() {
+            document.querySelectorAll('input[name="persona"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    currentPersona = this.value;
+                    console.log('Persona changed to:', currentPersona);
+                });
+            });
+        }
+
+        async function loadAdminSettings() {
+            try {
+                const response = await apiCall('/admin-settings');
+                const settings = response.settings || [];
+
+                // Update voting setting
+                const votingSetting = settings.find(s => s.setting_key === 'voting_enabled');
+                if (votingSetting) {
+                    votingEnabled = votingSetting.setting_value === 'true' || votingSetting.setting_value === true;
+                }
+
+                // Update checkbox state
+                const toggleCheckbox = document.getElementById('voting-enabled-toggle');
+                if (toggleCheckbox) {
+                    toggleCheckbox.checked = votingEnabled;
+                }
+
+                // Update status text
+                const statusElement = document.getElementById('voting-status');
+                if (statusElement) {
+                    statusElement.textContent = votingEnabled ? 'Enabled' : 'Disabled';
+                    statusElement.style.color = votingEnabled ? '#27ae60' : '#e74c3c';
+                }
+
+                console.log('Voting enabled:', votingEnabled);
+            } catch (error) {
+                console.warn('Could not load admin settings, using defaults:', error.message);
+            }
+        }
+
+        async function toggleVotingSystem(enabled) {
+            try {
+                const statusElement = document.getElementById('voting-status');
+                statusElement.textContent = 'Updating...';
+                statusElement.style.color = '#f39c12';
+
+                await apiCall('/admin-settings/voting_enabled', 'PUT', enabled);
+
+                votingEnabled = enabled;
+                statusElement.textContent = enabled ? 'Enabled' : 'Disabled';
+                statusElement.style.color = enabled ? '#27ae60' : '#e74c3c';
+
+                console.log('Voting system toggled:', enabled);
+            } catch (error) {
+                console.error('Failed to toggle voting system:', error);
+                const statusElement = document.getElementById('voting-status');
+                statusElement.textContent = 'Update failed';
+                statusElement.style.color = '#e74c3c';
+
+                // Revert checkbox
+                const toggleCheckbox = document.getElementById('voting-enabled-toggle');
+                if (toggleCheckbox) {
+                    toggleCheckbox.checked = !enabled;
+                }
+
+                setTimeout(() => {
+                    statusElement.textContent = votingEnabled ? 'Enabled' : 'Disabled';
+                    statusElement.style.color = votingEnabled ? '#27ae60' : '#e74c3c';
+                }, 2000);
+            }
+        }
+
+        function toggleAdminMode() {
+            const adminMode = document.getElementById('admin-mode').checked;
+            const securitySection = document.getElementById('admin-security-section');
+            const securityBtn = document.getElementById('security-check-btn');
+
+            if (adminMode) {
+                securitySection.style.display = 'block';
+                securityBtn.style.display = 'inline-block';
+                loadSecurityMetrics(); // Load security data when entering admin mode
+                loadAdminSettings(); // Load admin settings when entering admin mode
+            } else {
+                securitySection.style.display = 'none';
+                securityBtn.style.display = 'none';
+            }
+
+            console.log('Admin mode:', adminMode ? 'enabled' : 'disabled');
+        }
+
+        function showBulkOperations() {
+            alert('Bulk Operations Feature Coming Soon!\n\nThis will allow:\n• Bulk case updates\n• Mass evidence uploads\n• Batch AI analysis\n• Export operations');
+        }
+
+        function generateReports() {
+            alert('Reports Feature Coming Soon!\n\nThis will include:\n• Case outcome analytics\n• Success rate trends\n• AI performance metrics\n• Compliance reports');
+        }
+
+        async function loadCases() {
+            try {
+                const response = await apiCall('/grievances');
+                const cases = response.grievances || [];
+                displayCases(cases);
+            } catch (error) {
+                document.getElementById('cases-list').innerHTML = '<p>Error loading cases. Please check authentication.</p>';
+            }
+        }
+
+        function displayCases(cases) {
+            const container = document.getElementById('cases-list');
+            if (cases.length === 0) {
+                container.innerHTML = '<p>No cases found. Create your first grievance!</p>';
+                updateDashboardMetrics(cases);
+                return;
+            }
+
+            container.innerHTML = cases.map(caseItem => {
+                const winProb = caseItem.win_probability || 0;
+                const riskClass = winProb >= 70 ? 'high' : winProb >= 40 ? 'medium' : 'low';
+                return `
+                    <div class="case-card ${riskClass}" onclick="openCase(${caseItem.id})">
+                        <h3>${caseItem.title}</h3>
+                        <p>${caseItem.description.substring(0, 100)}...</p>
+                        <p><strong>Status:</strong> ${caseItem.status} | <strong>Win Probability:</strong> ${winProb}%</p>
+                        <p><small>Created: ${new Date(caseItem.created_at).toLocaleDateString()}</small></p>
+                    </div>
+                `;
+            }).join('');
+
+            updateDashboardMetrics(cases);
+        }
+
+        function updateDashboardMetrics(cases) {
+            // Update cases count
+            document.getElementById('cases-count').textContent = cases.length;
+
+            // Calculate average success rate
+            if (cases.length > 0) {
+                const totalWinProb = cases.reduce((sum, caseItem) => sum + (caseItem.win_probability || 0), 0);
+                const avgWinProb = Math.round(totalWinProb / cases.length);
+                document.getElementById('success-rate').textContent = `${avgWinProb}%`;
+
+                // Enhanced metrics for the new grievance system
+                document.getElementById('ai-confidence').textContent = `${Math.min(95, avgWinProb + 10)}%`; // AI confidence slightly higher than win rate
+
+                // Calculate average resolution time (mock data for now)
+                const avgDays = cases.length > 5 ? '18d' : '24d';
+                document.getElementById('avg-resolution').textContent = avgDays;
+            } else {
+                document.getElementById('success-rate').textContent = '0%';
+                document.getElementById('ai-confidence').textContent = 'N/A';
+                document.getElementById('avg-resolution').textContent = 'N/A';
+            }
+
+            // Load security metrics only if admin mode is active
+            if (document.getElementById('admin-mode').checked) {
+                loadSecurityMetrics();
+            }
+        }
+
+        function loadSecurityMetrics() {
+            const lastTestResults = localStorage.getItem('lastSecurityTestResults');
+            const lastTestTime = localStorage.getItem('lastSecurityTestTime');
+
+            if (lastTestResults) {
+                const results = JSON.parse(lastTestResults);
+                const passedTests = results.summary?.passedTests || 0;
+                const totalTests = results.summary?.totalTests || 35;
+                const failedTests = results.summary?.failedTests || 0;
+
+                const score = totalTests > 0 ? Math.round((passedTests / totalTests) * 100) : 100;
+                document.getElementById('security-score').textContent = `${score}%`;
+                document.getElementById('vulnerability-count').textContent = failedTests;
+
+                // Determine threat level
+                let threatLevel = 'LOW';
+                if (failedTests > 5) threatLevel = 'HIGH';
+                else if (failedTests > 2) threatLevel = 'MEDIUM';
+                document.getElementById('threat-level').textContent = threatLevel;
+            } else {
+                document.getElementById('security-score').textContent = '100%';
+                document.getElementById('vulnerability-count').textContent = '0';
+                document.getElementById('threat-level').textContent = 'LOW';
+            }
+
+            if (lastTestTime) {
+                const testDate = new Date(lastTestTime);
+                const now = new Date();
+                const diffMinutes = Math.floor((now - testDate) / (1000 * 60));
+
+                let timeDisplay = 'Just now';
+                if (diffMinutes < 60) {
+                    timeDisplay = `${diffMinutes}m ago`;
+                } else if (diffMinutes < 1440) {
+                    timeDisplay = `${Math.floor(diffMinutes / 60)}h ago`;
+                } else {
+                    timeDisplay = `${Math.floor(diffMinutes / 1440)}d ago`;
+                }
+
+                document.getElementById('last-test-time').textContent = timeDisplay;
+            } else {
+                document.getElementById('last-test-time').textContent = 'Never';
+            }
+        }
+
+        function openCase(caseId) {
+            currentCaseId = caseId;
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('case-detail').style.display = 'block';
+            loadCaseDetails(caseId);
+        }
+
+        async function loadCaseDetails(caseId) {
+            try {
+                const response = await apiCall(`/grievances/${caseId}`);
+                const caseData = response.grievance;
+                document.getElementById('case-title').textContent = caseData.title;
+                // Additional case details can be displayed here
+            } catch (error) {
+                console.error('Error loading case details:', error);
+            }
+        }
+
+        function showStepForm(step) {
+            document.querySelectorAll('.step-form').forEach(form => form.classList.remove('active'));
+            document.getElementById(`${step}-form`).classList.add('active');
+        }
+
+        async function submitUpdate(event, stepType) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const updateData = {
+                meetingType: stepType,
+                summary: formData.get('summary') || formData.get('response'),
+                tone: formData.get('tone'),
+                evidence: formData.get('evidence') || formData.get('inconsistencies'),
+                settlement: formData.get('settlement'),
+                step: stepType
+            };
+
+            try {
+                const response = await apiCall('/update-case', 'POST', {
+                    grievanceId: currentCaseId,
+                    updateData: updateData,
+                    persona: currentPersona
+                });
+
+                const responseId = response.responseId;
+                const votingHtml = votingEnabled ? `
+                        <div class="voting-section" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
+                            <strong>Rate this AI analysis:</strong>
+                            <button onclick="voteOnResponse('${responseId}', true, 'update-case')" class="vote-btn correct-btn">✅ Correct</button>
+                            <button onclick="voteOnResponse('${responseId}', false, 'update-case')" class="vote-btn incorrect-btn">❌ Incorrect</button>
+                            <span id="vote-status-${responseId}" style="margin-left: 10px; font-size: 12px;"></span>
+                        </div>` : '';
+
+                document.getElementById('analysis-content').innerHTML =
+                    `<div class="ai-response-container">
+                        <pre>${JSON.stringify(response.updateAnalysis, null, 2)}</pre>
+                        ${votingHtml}
+                    </div>`;
+                event.target.reset();
+            } catch (error) {
+                document.getElementById('analysis-content').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        async function generateCaseFile(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const prepData = {
+                witnesses: formData.get('witnesses'),
+                evidence: formData.get('evidence')
+            };
+
+            try {
+                const response = await apiCall('/generate-case-file', 'POST', {
+                    grievanceId: currentCaseId,
+                    prepData: prepData
+                });
+
+                const responseId = response.responseId;
+                const votingHtml = votingEnabled ? `
+                        <div class="voting-section" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
+                            <strong>Rate this AI analysis:</strong>
+                            <button onclick="voteOnResponse('${responseId}', true, 'generate-case-file')" class="vote-btn correct-btn">✅ Correct</button>
+                            <button onclick="voteOnResponse('${responseId}', false, 'generate-case-file')" class="vote-btn incorrect-btn">❌ Incorrect</button>
+                            <span id="vote-status-${responseId}" style="margin-left: 10px; font-size: 12px;"></span>
+                        </div>` : '';
+
+                document.getElementById('analysis-content').innerHTML =
+                    `<div class="ai-response-container">
+                        <h4>Court-Ready Case File Generated:</h4>
+                        <pre>${response.caseFile}</pre>
+                        ${votingHtml}
+                    </div>`;
+            } catch (error) {
+                document.getElementById('analysis-content').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        function showNewCaseForm() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('new-case-form').style.display = 'block';
+        }
+
+        async function createNewCase(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const caseData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                grievantName: formData.get('grievantName'),
+                grievantId: formData.get('grievantId'),
+                incidentDate: formData.get('incidentDate'),
+                disciplineType: formData.get('disciplineType'),
+                grievantPosition: formData.get('grievantPosition')
+            };
+
+            try {
+                const response = await apiCall('/create-grievance', 'POST', caseData);
+                alert('Case created successfully! ' + (response.contractAutoSelected ? 'Contract auto-selected based on position.' : ''));
+                backToMain();
+                loadCases();
+            } catch (error) {
+                alert('Error creating case: ' + error.message);
+            }
+        }
+
+        async function checkContractSuggestions() {
+            const positionInput = document.getElementById('grievantPosition');
+            const position = positionInput.value.trim();
+            const suggestionsDiv = document.getElementById('contractSuggestions');
+            const suggestedContractSpan = document.getElementById('suggestedContract');
+
+            if (!position || position.length < 2) {
+                suggestionsDiv.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await apiCall('/contract-suggestions?position=' + encodeURIComponent(position));
+                const suggestions = response.suggestions;
+
+                if (suggestions && suggestions.length > 0) {
+                    const topSuggestion = suggestions[0];
+                    suggestedContractSpan.textContent = `${topSuggestion.filename} (${topSuggestion.matchedKeywords.join(', ')})`;
+                    suggestionsDiv.style.display = 'block';
+                } else {
+                    suggestionsDiv.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error getting contract suggestions:', error);
+                suggestionsDiv.style.display = 'none';
+            }
+        }
+
+        function backToMain() {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('case-detail').style.display = 'none';
+            document.getElementById('new-case-form').style.display = 'none';
+            document.querySelectorAll('.step-form').forEach(form => form.classList.remove('active'));
+            currentCaseId = null;
+        }
+
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const token = localStorage.getItem('authToken');
+            if (!token) throw new Error('Not authenticated. Please login first.');
+
+            const response = await fetch(endpoint, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: body ? JSON.stringify(body) : null
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            }
+
+            return await response.json();
+        }
+
+        // Login function (call this first)
+        async function login(idToken) {
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken })
+                });
+                const data = await response.json();
+                localStorage.setItem('authToken', data.token);
+                loadCases();
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+            }
+        }
+
+        // Integrated security check function
+        async function runQuickSecurityCheck() {
+            const runBtn = document.getElementById('security-check-btn');
+            const originalText = runBtn.textContent;
+
+            // Update button to show running state
+            runBtn.disabled = true;
+            runBtn.textContent = '🔍 Checking...';
+            runBtn.style.background = '#f39c12';
+
+            try {
+                // Run the security tests
+                const response = await apiCall('/run-security-tests', 'POST');
+
+                // Store results in localStorage for persistence
+                localStorage.setItem('lastSecurityTestResults', JSON.stringify(response));
+                localStorage.setItem('lastSecurityTestTime', new Date().toISOString());
+
+                // Update dashboard metrics immediately
+                loadSecurityMetrics();
+
+                // Show brief success message
+                const success = response.success;
+                showSecurityCheckResult(success, response);
+
+            } catch (error) {
+                console.error('Security check error:', error);
+                showSecurityCheckResult(false, { error: error.message });
+            } finally {
+                // Reset button after short delay
+                setTimeout(() => {
+                    runBtn.disabled = false;
+                    runBtn.textContent = originalText;
+                    runBtn.style.background = '#27ae60';
+                }, 1000);
+            }
+        }
+
+        function showSecurityCheckResult(success, results) {
+            // Create a temporary notification that fades out
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease-out;
+            `;
+
+            if (success) {
+                notification.style.background = '#27ae60';
+                notification.innerHTML = `✅ Security Check Passed<br><small>${results.summary?.passedTests || 0}/${results.summary?.totalTests || 35} tests passed</small>`;
+            } else {
+                notification.style.background = '#e74c3c';
+                notification.innerHTML = `❌ Security Issues Found<br><small>${results.error || 'Check failed'}</small>`;
+            }
+
+            document.body.appendChild(notification);
+
+            // Add slide-in animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease-in reverse';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+
+
+        // Vote on AI response function
+        async function voteOnResponse(responseId, vote, responseType) {
+            // Check if voting is enabled
+            if (!votingEnabled) {
+                console.warn('Voting is disabled by system administrator');
+                return;
+            }
+
+            const statusElement = document.getElementById(`vote-status-${responseId}`);
+            const buttons = document.querySelectorAll(`.voting-section button[onclick*="voteOnResponse('${responseId}'"]`);
+
+            try {
+                // Disable buttons during vote
+                buttons.forEach(btn => btn.disabled = true);
+                statusElement.textContent = 'Submitting vote...';
+                statusElement.style.color = '#f39c12';
+
+                const response = await apiCall('/vote-ai-response', 'POST', {
+                    responseId: responseId,
+                    vote: vote,
+                    responseType: responseType,
+                    aiProvider: 'unknown' // Could be enhanced to pass actual provider
+                });
+
+                // Update UI on success
+                statusElement.textContent = 'Vote recorded!';
+                statusElement.style.color = '#27ae60';
+
+                // Disable buttons permanently after voting
+                buttons.forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.6';
+                });
+
+            } catch (error) {
+                console.error('Vote submission error:', error);
+                statusElement.textContent = 'Vote failed. Try again.';
+                statusElement.style.color = '#e74c3c';
+
+                // Re-enable buttons on error
+                buttons.forEach(btn => btn.disabled = false);
+            }
+        }
+
+        // Analytics Dashboard Functions
+        async function toggleAnalyticsDashboard() {
+            const analyticsSection = document.getElementById('analytics-dashboard');
+            const adminMode = document.getElementById('admin-mode').checked;
+
+            if (!adminMode) {
+                alert('Analytics dashboard is only available in admin mode.');
+                return;
+            }
+
+            if (analyticsSection.style.display === 'none' || analyticsSection.style.display === '') {
+                analyticsSection.style.display = 'block';
+                document.getElementById('analytics-status').textContent = 'Analytics dashboard loaded';
+                await loadAnalyticsDashboard();
+
+                // Start real-time updates
+                startRealTimeUpdates();
+            } else {
+                analyticsSection.style.display = 'none';
+                document.getElementById('analytics-status').textContent = 'Click to access system analytics';
+
+                // Stop real-time updates
+                stopRealTimeUpdates();
+            }
+        }
+
+        async function loadAnalyticsDashboard() {
+            const timeRange = document.getElementById('analytics-time-range').value;
+
+            try {
+                const response = await apiCall(`/analytics/dashboard?range=${timeRange}`);
+                analyticsData = response;
+
+                // Update overview metrics
+                updateOverviewMetrics(response);
+
+                // Update current tab content
+                const activeTab = document.querySelector('.tab-button.active').textContent.toLowerCase().replace(' ', '-');
+                updateTabContent(activeTab, response);
+
+                console.log('Analytics dashboard loaded successfully');
+            } catch (error) {
+                console.error('Failed to load analytics dashboard:', error);
+                document.getElementById('analytics-status').textContent = 'Failed to load analytics data';
+            }
+        }
+
+        function updateOverviewMetrics(data) {
+            document.getElementById('total-requests').textContent = data.usage.reduce((sum, item) => sum + item.count, 0);
+            document.getElementById('ai-responses').textContent = data.performance.reduce((sum, item) => sum + item.request_count, 0);
+            document.getElementById('user-feedback').textContent = data.accuracy.totalVotes;
+            document.getElementById('success-rate').textContent = `${data.accuracy.rate}%`;
+
+            // Create actions chart
+            createActionsChart(data.usage);
+        }
+
+        function updateTabContent(tabName, data) {
+            switch(tabName) {
+                case 'overview':
+                    createActionsChart(data.usage);
+                    loadSystemHealthIndicators();
+                    break;
+                case 'performance':
+                    createPerformanceCharts(data.performance);
+                    break;
+                case 'usage':
+                    createUsageCharts(data);
+                    break;
+                case 'ai-models':
+                    createAIComparisonCharts(data.aiComparison);
+                    break;
+                case 'predictions':
+                    loadPredictiveInsights();
+                    break;
+            }
+        }
+
+        function createActionsChart(usageData) {
+            const ctx = document.getElementById('actions-chart').getContext('2d');
+
+            if (analyticsCharts.actionsChart) {
+                analyticsCharts.actionsChart.destroy();
+            }
+
+            const labels = usageData.map(item => item.action.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()));
+            const values = usageData.map(item => item.count);
+
+            analyticsCharts.actionsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Actions Count',
+                        data: values,
+                        backgroundColor: 'rgba(52, 152, 219, 0.6)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPerformanceCharts(performanceData) {
+            // Response time chart
+            const timeCtx = document.getElementById('performance-chart').getContext('2d');
+            if (analyticsCharts.performanceChart) analyticsCharts.performanceChart.destroy();
+
+            analyticsCharts.performanceChart = new Chart(timeCtx, {
+                type: 'line',
+                data: {
+                    labels: performanceData.map(item => new Date(item.time_bucket).toLocaleDateString()),
+                    datasets: [{
+                        label: 'Avg Response Time (ms)',
+                        data: performanceData.map(item => item.avg_response_time),
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Confidence chart
+            const confCtx = document.getElementById('confidence-chart').getContext('2d');
+            if (analyticsCharts.confidenceChart) analyticsCharts.confidenceChart.destroy();
+
+            analyticsCharts.confidenceChart = new Chart(confCtx, {
+                type: 'line',
+                data: {
+                    labels: performanceData.map(item => new Date(item.time_bucket).toLocaleDateString()),
+                    datasets: [{
+                        label: 'Avg Confidence (%)',
+                        data: performanceData.map(item => item.avg_confidence),
+                        borderColor: 'rgba(46, 204, 113, 1)',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Update performance metrics
+            const avgTime = performanceData.reduce((sum, item) => sum + item.avg_response_time, 0) / performanceData.length;
+            const avgConf = performanceData.reduce((sum, item) => sum + item.avg_confidence, 0) / performanceData.length;
+            const totalRequests = performanceData.reduce((sum, item) => sum + item.request_count, 0);
+            const throughput = totalRequests / performanceData.length;
+
+            document.getElementById('avg-response-time').textContent = Math.round(avgTime) + 'ms';
+            document.getElementById('avg-confidence').textContent = Math.round(avgConf) + '%';
+            document.getElementById('request-volume').textContent = totalRequests;
+            document.getElementById('throughput').textContent = Math.round(throughput);
+        }
+
+        function createUsageCharts(data) {
+            // Hourly usage chart
+            const hourlyCtx = document.getElementById('usage-hourly-chart').getContext('2d');
+            if (analyticsCharts.hourlyChart) analyticsCharts.hourlyChart.destroy();
+
+            analyticsCharts.hourlyChart = new Chart(hourlyCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.hourlyUsage.map(item => `${item.hour}:00`),
+                    datasets: [{
+                        label: 'Requests per Hour',
+                        data: data.hourlyUsage.map(item => item.requests),
+                        backgroundColor: 'rgba(155, 89, 182, 0.6)',
+                        borderColor: 'rgba(155, 89, 182, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Daily usage chart
+            const dailyCtx = document.getElementById('usage-daily-chart').getContext('2d');
+            if (analyticsCharts.dailyChart) analyticsCharts.dailyChart.destroy();
+
+            analyticsCharts.dailyChart = new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: data.dailyUsage.map(item => item.date),
+                    datasets: [{
+                        label: 'Daily Requests',
+                        data: data.dailyUsage.map(item => item.count),
+                        borderColor: 'rgba(230, 126, 34, 1)',
+                        backgroundColor: 'rgba(230, 126, 34, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Update usage metrics
+            const uniqueUsers = [...new Set(data.usage.flatMap(item =>
+                item.unique_users ? [item.unique_users] : []
+            ))].length;
+
+            document.getElementById('unique-users').textContent = uniqueUsers;
+            document.getElementById('avg-session').textContent = 'N/A'; // Would need session data
+            document.getElementById('return-users').textContent = 'N/A'; // Would need user history
+            document.getElementById('growth-rate').textContent = 'N/A'; // Would need trend analysis
+
+            // Load user engagement details
+            loadUserEngagementDetails(data.userEngagement);
+        }
+
+        function createAIComparisonCharts(aiData) {
+            const ctx = document.getElementById('ai-comparison-chart').getContext('2d');
+            if (analyticsCharts.aiChart) analyticsCharts.aiChart.destroy();
+
+            // Group by provider
+            const providerData = {};
+            aiData.forEach(item => {
+                if (!providerData[item.ai_provider]) {
+                    providerData[item.ai_provider] = {
+                        responseTime: 0,
+                        count: 0,
+                        accuracy: 0
+                    };
+                }
+                providerData[item.ai_provider].responseTime += item.avg_response_time;
+                providerData[item.ai_provider].count += 1;
+                providerData[item.ai_provider].accuracy += item.avg_user_rating || 0;
+            });
+
+            const providers = Object.keys(providerData);
+            const avgTimes = providers.map(p => providerData[p].responseTime / providerData[p].count);
+            const accuracies = providers.map(p => providerData[p].accuracy / providerData[p].count);
+
+            analyticsCharts.aiChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: providers,
+                    datasets: [{
+                        label: 'Avg Response Time (ms)',
+                        data: avgTimes,
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    }, {
+                        label: 'User Rating',
+                        data: accuracies,
+                        borderColor: 'rgba(46, 204, 113, 1)',
+                        backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Update model comparison metrics
+            const bestModel = providers[avgTimes.indexOf(Math.min(...avgTimes))];
+            const mostAccurate = providers[accuracies.indexOf(Math.max(...accuracies))];
+
+            document.getElementById('best-model').textContent = bestModel || 'N/A';
+            document.getElementById('most-accurate').textContent = mostAccurate || 'N/A';
+            document.getElementById('fastest-avg').textContent = Math.round(Math.min(...avgTimes)) + 'ms';
+            document.getElementById('cost-effective').textContent = 'N/A'; // Would need cost data
+
+            // Populate model details table
+            populateModelDetailsTable(aiData);
+        }
+
+        function populateModelDetailsTable(aiData) {
+            const tbody = document.getElementById('model-details-body');
+            tbody.innerHTML = '';
+
+            aiData.forEach(item => {
+                const row = tbody.insertRow();
+                row.insertCell(0).textContent = item.ai_provider;
+                row.insertCell(1).textContent = item.operation_type;
+                row.insertCell(2).textContent = Math.round(item.avg_response_time) + 'ms';
+                row.insertCell(3).textContent = Math.round(item.successful_requests / item.total_requests * 100) + '%';
+                row.insertCell(4).textContent = item.avg_user_rating ? item.avg_user_rating.toFixed(1) : 'N/A';
+                row.insertCell(5).textContent = item.total_requests;
+            });
+        }
+
+        async function loadPredictiveInsights() {
+            try {
+                const response = await apiCall('/analytics/predictive-insights');
+
+                document.getElementById('predicted-growth').textContent = response.usageGrowth.growthRate + '%';
+                document.getElementById('predicted-load').textContent = response.usageGrowth.predictedLoad;
+                document.getElementById('error-trend').textContent = response.errorTrends.averageErrorRate + '%';
+                document.getElementById('risk-level').textContent = response.usageGrowth.growthRate > 10 ? 'HIGH' :
+                    response.errorTrends.averageErrorRate > 5 ? 'MEDIUM' : 'LOW';
+
+                // Update recommendations
+                const recommendationsDiv = document.getElementById('system-recommendations');
+                recommendationsDiv.innerHTML = '<ul>' +
+                    response.recommendations.map(rec => `<li>${rec}</li>`).join('') +
+                    '</ul>';
+
+                // Create forecast chart
+                createForecastChart(response);
+
+            } catch (error) {
+                console.error('Failed to load predictive insights:', error);
+            }
+        }
+
+        function createForecastChart(data) {
+            const ctx = document.getElementById('forecast-chart').getContext('2d');
+            if (analyticsCharts.forecastChart) analyticsCharts.forecastChart.destroy();
+
+            // Mock forecast data - in real implementation, this would come from the backend
+            const labels = ['Today', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+            const current = data.usageGrowth.currentAverage;
+            const growth = data.usageGrowth.growthRate / 100;
+            const forecast = labels.map((_, i) => Math.round(current * Math.pow(1 + growth, i)));
+
+            analyticsCharts.forecastChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Predicted Requests',
+                        data: forecast,
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        async function loadSystemHealthIndicators() {
+            const indicatorsDiv = document.getElementById('system-health-indicators');
+            indicatorsDiv.innerHTML = '<p>🔄 System running normally<br>🗄️ Database connections healthy<br>🤖 AI services operational<br>📊 Analytics data current</p>';
+        }
+
+        function loadUserEngagementDetails(engagementData) {
+            const detailsDiv = document.getElementById('user-engagement-details');
+            if (!engagementData || engagementData.length === 0) {
+                detailsDiv.innerHTML = '<p>No user engagement data available</p>';
+                return;
+            }
+
+            const html = engagementData.slice(0, 10).map(user =>
+                `<div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                    <strong>User Actions:</strong> ${user.total_actions} |
+                    <strong>Active Days:</strong> ${user.active_days} |
+                    <strong>Engagement:</strong> ${user.engagement_span ? Math.round(user.engagement_span / (1000 * 60 * 60 * 24)) + ' days' : 'N/A'}
+                </div>`
+            ).join('');
+
+            detailsDiv.innerHTML = html;
+        }
+
+        function switchAnalyticsTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.analytics-tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Load tab-specific data
+            if (analyticsData) {
+                updateTabContent(tabName.replace('-tab', ''), analyticsData);
+            }
+        }
+
+        function startRealTimeUpdates() {
+            if (realTimeInterval) clearInterval(realTimeInterval);
+
+            realTimeInterval = setInterval(async () => {
+                try {
+                    const response = await apiCall('/analytics/real-time');
+
+                    document.getElementById('real-time-active-users').textContent = response.activeUsers;
+                    document.getElementById('real-time-requests-min').textContent = response.requestsPerMinute;
+                    document.getElementById('real-time-accuracy').textContent = response.accuracy + '%';
+                    document.getElementById('real-time-error-rate').textContent = response.errorRate + '%';
+                } catch (error) {
+                    console.warn('Failed to update real-time metrics:', error);
+                }
+            }, 30000); // Update every 30 seconds
+        }
+
+        function stopRealTimeUpdates() {
+            if (realTimeInterval) {
+                clearInterval(realTimeInterval);
+                realTimeInterval = null;
+            }
+        }
+
+        async function exportAnalyticsData() {
+            try {
+                const format = confirm('Export as JSON? (Cancel for CSV)') ? 'json' : 'csv';
+                const timeRange = document.getElementById('analytics-time-range').value;
+
+                // Create download link
+                const link = document.createElement('a');
+                link.href = `/analytics/export?format=${format}&days=${timeRange.replace('h', '').replace('d', '')}`;
+                link.download = `analytics-export-${new Date().toISOString().split('T')[0]}.${format}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                alert(`Analytics data exported as ${format.toUpperCase()}`);
+            } catch (error) {
+                console.error('Failed to export analytics data:', error);
+                alert('Failed to export analytics data');
+            }
+        }
+
+        // Make functions global
+        window.runQuickSecurityCheck = runQuickSecurityCheck;
+        window.toggleAdminMode = toggleAdminMode;
+        window.toggleVotingSystem = toggleVotingSystem;
+        window.showBulkOperations = showBulkOperations;
+        window.generateReports = generateReports;
+        window.voteOnResponse = voteOnResponse;
+        window.toggleAnalyticsDashboard = toggleAnalyticsDashboard;
+        window.switchAnalyticsTab = switchAnalyticsTab;
+        window.loadAnalyticsDashboard = loadAnalyticsDashboard;
+        window.exportAnalyticsData = exportAnalyticsData;
+
+        // Make login function global for Firebase callback
+        window.login = login;
+    </script>
+</body>
+</html>

@@ -96,6 +96,7 @@ async function setupDatabase() {
         email VARCHAR(255),
         name VARCHAR(255),
         role VARCHAR(50) DEFAULT 'member',
+        position VARCHAR(100),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_login TIMESTAMP
       )
