@@ -3,7 +3,7 @@ const cluster = require('cluster');
 const os = require('os');
 const express = require('express');
 const cors = require('cors');
-const crypto = crypto;
+const crypto = require('crypto');
 
 // COST-FREE PERFORMANCE OPTIMIZATION: Node.js Clustering
 // Utilizes all CPU cores for better performance and scalability
